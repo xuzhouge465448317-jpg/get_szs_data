@@ -105,7 +105,7 @@ def sanitize_filename(name):
 
 # 主程序：从第 1
 # 页开始爬取，最多 max_pages 页
-def crawl_ann_reports(start_date="2024-07-06", end_date="2025-07-06", max_pages=10):
+def crawl_ann_reports(start_date="2024-07-06", end_date="2025-07-06", max_pages=1):
     downloaded_ids = load_downloaded_ids()  # 读取已下载记录
     total_new = 0  # 记录下载成功的数量
     total_continue = 0  # 记录跳过的数量
