@@ -5,7 +5,7 @@ import time  # 控制时间间隔，记录用时
 import logging  # 记录日志
 import requests  # 发送 HTTP 请求
 import pandas as pd  # 处理 Excel 文件
-import re
+import re # 正则
 
 # 配置日志，记录到 spider.log 文件，编码为 utf-8
 logging.basicConfig(
