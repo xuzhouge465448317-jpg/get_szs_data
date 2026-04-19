@@ -6,6 +6,7 @@ import logging  # 记录日志
 import requests  # 发送 HTTP 请求
 import pandas as pd  # 处理 Excel 文件
 import re # 正则
+import random  # 用于随机等待时间
 
 # 配置日志，记录到 spider.log 文件，编码为 utf-8
 logging.basicConfig(
@@ -42,7 +43,6 @@ HEADERS = {
 }
 
 # 创建保存 PDF 的目录，如果已经存在不会报错
-os.makedirs(SAVE_DIR, exist_ok=True)
 
 
 # 读取已下载过的 annId（用于断点续爬）
@@ -100,12 +100,12 @@ def download_pdf(url, file_path, retries=3):
 def sanitize_filename(name):
     return name.replace("/", "_").replace("\\", "_").replace("：", "_").replace(":", "_") \
         .replace("?", "").replace("*", "").replace("\"", "").replace("<", "") \
-        .replace(">", "").replace("|", "")
+        .replace(">", "").replace("|", "").replace(" ", "")
 
 
 # 主程序：从第 1
 # 页开始爬取，最多 max_pages 页
-def crawl_ann_reports(start_date="2024-07-06", end_date="2025-07-06", max_pages=1):
+def crawl_ann_reports(start_date="2025-03-13", end_date="2026-03-13", max_pages=119):
     downloaded_ids = load_downloaded_ids()  # 读取已下载记录
     total_new = 0  # 记录下载成功的数量
     total_continue = 0  # 记录跳过的数量
@@ -189,7 +189,7 @@ def crawl_ann_reports(start_date="2024-07-06", end_date="2025-07-06", max_pages=
             else:
                 log(f"❌ 下载失败，用时：{cost:.2f} 秒")
 
-            time.sleep(2)  # 防止 IP 被封，等待 2 秒
+            time.sleep(random.uniform(0, 2))  # 防止 IP 被封，随机等待 0-2 秒
 
     save_downloaded_ids(downloaded_ids)  # 保存所有已下载记录
     log(f"\n🎉 本次新增下载：{total_new} 份年报PDF数据。🎉 本次跳过下载：{total_continue} 份不需要数据，总计{total_new + total_continue}份。")
