@@ -39,8 +39,6 @@ DOWNLOADED_IDS_FILE = "downloaded_ids.txt"
 注意事项：
 
 - 当前数据源是深交所，但默认保存目录名是 `F:\上交所`，建议改成准确且专用的目录，例如 `F:\深交所年报`。
-- 运行前确保 `SAVE_DIR` 目录已经存在；当前脚本没有自动创建目录。
-- 不要把 PDF、Excel、日志和 `downloaded_ids.txt` 提交到 Git。
 - 如果要更换日期范围或页数，优先通过调用函数参数调整，不要盲目扩大页数。
 
 ## 运行方式
@@ -48,7 +46,6 @@ DOWNLOADED_IDS_FILE = "downloaded_ids.txt"
 直接运行默认参数：
 
 ```powershell
-cd F:\datacode\data_batch_bug
 python .\get_szs_data.py
 ```
 
@@ -66,18 +63,10 @@ python -c "from get_szs_data import crawl_ann_reports; crawl_ann_reports(start_d
 
 确认输出、筛选规则和保存路径都正确后，再扩大日期范围和页数。
 
-## 输出文件
-
-| 文件 | 说明 | 是否建议提交 |
-| --- | --- | --- |
-| `SAVE_DIR/*.pdf` | 下载的年报 PDF | 否 |
-| `EXCEL_FILE` | 年报元信息 Excel | 否 |
-| `downloaded_ids.txt` | 已下载公告 ID，用于断点续跑 | 否 |
-| `spider.log` | 运行日志 | 否 |
 
 ## 风险控制清单
 
-运行前请确认以下事项，降低法律、合规、稳定性和数据质量风险：
+运行前请确认以下事项，降低法律、合规、稳定性和数据质量风险、本脚本只用于学习，不做用于任何对他们服务器的数据抓取：
 
 - 只下载公开披露公告，不抓取需要登录、验证码、付费或权限控制的数据。
 - 遵守目标网站的使用规则、单位合规要求和数据使用边界。
@@ -88,7 +77,6 @@ python -c "from get_szs_data import crawl_ann_reports; crawl_ann_reports(start_d
 - 使用公开数据做分析时，应保留来源字段和下载时间，方便追溯。
 - 不要在日志或 Excel 中写入个人账号、Cookie、Token、代理地址等敏感信息。
 - 脚本当前使用部分 `http://` 地址；在不可信网络环境中运行有被篡改风险，能使用 HTTPS 时应优先使用 HTTPS。
-- 下载量较大时要确认磁盘空间，避免把系统盘或共享盘写满。
 
 ## 建议的安全运行流程
 
